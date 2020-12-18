@@ -352,7 +352,9 @@ export default {
       import('@/vendor/Export2Excel').then(excel => {
         const tHeader = ['timestamp', 'title', 'type', 'importance', 'status']
         const filterVal = ['timestamp', 'title', 'type', 'importance', 'status']
+        console.log(JSON.parse(JSON.stringify(this.list)))
         const data = this.formatJson(filterVal)
+        console.log(data)
         excel.export_json_to_excel({
           header: tHeader,
           data,
@@ -362,13 +364,16 @@ export default {
       })
     },
     formatJson(filterVal) {
-      return this.list.map(v => filterVal.map(j => {
-        if (j === 'timestamp') {
-          return parseTime(v[j])
-        } else {
-          return v[j]
-        }
-      }))
+      return this.list.map(v => {
+        const arr = filterVal.map(j => {
+          if (j === 'timestamp') {
+            return parseTime(v[j])
+          } else {
+            return v[j]
+          }
+        })
+        return arr
+      })
     },
     getSortClass: function(key) {
       const sort = this.listQuery.sort

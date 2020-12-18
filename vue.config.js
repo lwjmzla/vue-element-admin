@@ -55,12 +55,12 @@ module.exports = {
     // set svg-sprite-loader
     config.module
       .rule('svg')
-      .exclude.add(resolve('src/icons'))
+      .exclude.add(resolve('src/icons')) // !创建一个名字为svg的rule， 排除掉src/icons目录下的所有文件，让其他loader不要操作
       .end()
     config.module
       .rule('icons')
       .test(/\.svg$/)
-      .include.add(resolve('src/icons'))
+      .include.add(resolve('src/icons')) // !创建一个名字为icons的rule， 只对src/icons目录下的svg文件进行操作
       .end()
       .use('svg-sprite-loader')
       .loader('svg-sprite-loader')
